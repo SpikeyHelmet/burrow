@@ -84,7 +84,7 @@ TENDERMINT_VERSION?=$(shell go list -m -f '{{ .Version }}' $(TENDERMINT_MOD))
 TENDERMINT_SRC?=$(shell go env GOMODCACHE)/$(TENDERMINT_MOD)@$(TENDERMINT_VERSION)
 TENDERMINT_PROTO?=$(TENDERMINT_SRC)/proto
 
-PROTO_FILES = $(shell find . $(TENDERMINT_PROTO) -path $(BURROW_TS_PATH) -prune -o -path ./node_modules -prune -o -type f -name '*.proto' -print)
+PROTO_FILES = $(shell find . -path $(TENDERMINT_PROTO) -path $(BURROW_TS_PATH) -prune -o -path '*/node_modules' -prune -o -type f -name '*.proto' -print)
 PROTO_GO_FILES = $(patsubst %.proto, %.pb.go, $(PROTO_FILES))
 PROTO_GO_FILES_REAL = $(shell find . -type f -name '*.pb.go' -print)
 PROTO_TS_FILES = $(patsubst %.proto, %.pb.ts, $(PROTO_FILES))
